@@ -59,6 +59,14 @@
                 app:title="@string/pref_advanced_reset_push_title"
             />
 
+            <com.waz.zclient.preferences.views.TextButton
+                android:id="@+id/preferences_backup"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/preference_button_height"
+                app:subtitle="Save your conversations and whatever"
+                app:title="Backup"
+                />
+
         </LinearLayout>
 
     </ScrollView>

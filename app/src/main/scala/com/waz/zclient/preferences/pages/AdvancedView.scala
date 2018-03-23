@@ -28,7 +28,7 @@ import com.waz.threading.{CancellableFuture, Threading}
 import com.waz.zclient.preferences.views.{SwitchPreference, TextButton}
 import com.waz.zclient.tracking.{GlobalTrackingController, MixpanelGuard}
 import com.waz.zclient.utils.ContextUtils._
-import com.waz.zclient.utils.{BackStackKey, DebugUtils}
+import com.waz.zclient.utils.{BackStackKey, BackStackNavigator, DebugUtils}
 import com.waz.zclient.{R, ViewHelper}
 
 import scala.concurrent.duration._
@@ -36,14 +36,16 @@ trait AdvancedView
 
 class AdvancedViewImpl(context: Context, attrs: AttributeSet, style: Int) extends LinearLayout(context, attrs, style) with AdvancedView with ViewHelper {
   def this(context: Context, attrs: AttributeSet) = this(context, attrs, 0)
-
   def this(context: Context) = this(context, null, 0)
 
   inflate(R.layout.preferences_advanced_layout)
 
+  val navigator = inject[BackStackNavigator]
+
   val analyticsSwitch = findById[SwitchPreference](R.id.preferences_analytics)
   val submitReport = findById[TextButton](R.id.preferences_debug_report)
   val resetPush = findById[TextButton](R.id.preferences_reset_push)
+  val backup = findById[TextButton](R.id.preferences_backup)
 
   analyticsSwitch.setPreference(GlobalTrackingController.analyticsPrefKey, global = true)
 
@@ -56,6 +58,10 @@ class AdvancedViewImpl(context: Context, attrs: AttributeSet, style: Int) extend
     Toast.makeText(getContext, getString(R.string.pref_advanced_reset_push_completed)(getContext), Toast.LENGTH_LONG).show()
     setResetEnabled(false)
     CancellableFuture.delay(5.seconds).map(_ => setResetEnabled(true))(Threading.Ui)
+  }
+
+  backup.onClickEvent { _ =>
+    navigator.goTo(BackupExportKey())
   }
 
   private def setResetEnabled(enabled: Boolean) = {

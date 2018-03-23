@@ -479,6 +479,7 @@
     <string name="pref_developer_screen_title">Developer Settings</string>
     <string name="pref_dev_avs_screen_title">AVS Settings</string>
     <string name="pref_profile_screen_title">Profile</string>
+    <string name="pref_backup_screen_title">Conversation History</string>
 
     <!-- Account -->
     <string name="pref_account_screen_title">Account</string>
@@ -1343,4 +1344,8 @@
     <string name="guest_time_left_hours">%1$sh left</string>
     <string name="guest_time_left_hours_minutes">%1$s.%2$sh left</string>
     <string name="guest_time_left_minutes">Less than %1$sm left</string>
+    <string name="backup_description">This will backup your stuff and all and long text about how you should do this or not, who cares. Go home.</string>
+    <string name="backup_restore_warning_title">Log out</string>
+    <string name="backup_restore_warning_content">You need to log out before you import the backup.</string>
+    <string name="backup_restore_warning_confirm">Log out</string>
 </resources>
